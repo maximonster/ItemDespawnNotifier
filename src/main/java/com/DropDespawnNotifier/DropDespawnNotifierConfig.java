@@ -4,25 +4,59 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("NPCTaunts")
+@ConfigGroup("DropDespawnNotifier")
 public interface DropDespawnNotifierConfig extends Config
 {
 	@ConfigItem(
-			keyName = "custombosstaunts",
-			name = "Custom Boss Taunts",
-			description = "Adds your own taunts to a boss. See readme on how to use",
+			keyName = "NotifySeconds",
+			name = "Seconds before despawn",
+			description = "The amount of seconds before the notification should trigger",
+			position = 0
+	)
+	default int NotifySeconds()
+	{
+		return 15;
+	}
+	@ConfigItem(
+			keyName = "GEValue",
+			name = "Minimum GE Value",
+			description = "GEValue",
+			position = 2
+	)
+	default int GEValue()
+	{
+		return 20000;
+	}
+	@ConfigItem(
+			keyName = "HAValue",
+			name = "Minimum HA Value",
+			description = "HAValue",
+			position = 3
+	)
+	default int HAValue()
+	{
+		return 20000;
+	}
+	@ConfigItem(
+			keyName = "highlightedItems",
+			name = "Highlighted Items",
+			description = "Configures specifically highlighted ground items. Format: (item), (item)",
 			position = 1
 	)
-	default String custombosstaunts()
+	default String highlightedItems()
 	{
-		return "ExactBossname;Custom Taunt 1:Custom Taunt 2\n"+"ExactBossname2;Custom Taunt 3:Custom Taunt 4";
+		return "";
 	}
-
-	default boolean texttospeech()
+	@ConfigItem(
+			keyName = "UseGroundItemList",
+			name = "Use Ground Items Highlight List",
+			description = "The amount of seconds before the notification should trigger",
+			position = 4
+	)
+	default boolean UseGroundItemList()
 	{
 		return false;
 	}
-
 
 
 }
