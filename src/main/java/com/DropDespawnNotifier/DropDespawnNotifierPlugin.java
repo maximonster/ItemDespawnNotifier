@@ -235,7 +235,6 @@ public class DropDespawnNotifierPlugin extends Plugin {
     }
     private Instant calculateDespawnTime(DSNGroundItem groundItem)
     {
-        log.debug("Item: "+groundItem.getName().toString()+" spawn time: " + groundItem.getSpawnTime().toString() +" Despawn time: " +groundItem.getDespawnTime().toString());
         Instant spawnTime = groundItem.getSpawnTime();
         if (spawnTime == null)
         {
@@ -256,8 +255,6 @@ public class DropDespawnNotifierPlugin extends Plugin {
 
         for (int i = 0; i < NotifyItems.length; i++) {
             if (NotifyItems[i].contains(item.getName())){
-                log.debug(NotifyItems[i]+"= is the same as = "+item.getName());
-
                 return true;
             }
         }
