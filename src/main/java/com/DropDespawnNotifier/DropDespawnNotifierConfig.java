@@ -40,7 +40,7 @@ public interface DropDespawnNotifierConfig extends Config
 	@ConfigItem(
 			keyName = "highlightedItems",
 			name = "Highlighted Items",
-			description = "Configures specifically highlighted ground items. Format: (item), (item)",
+			description = "Configures ground items to notify for no matter the GE or HA value. Format: (item), (item)",
 			position = 1
 	)
 	default String highlightedItems()
@@ -50,7 +50,7 @@ public interface DropDespawnNotifierConfig extends Config
 	@ConfigItem(
 			keyName = "UseGroundItemList",
 			name = "Use Ground Items Highlight List",
-			description = "The amount of seconds before the notification should trigger",
+			description = "If enabled uses the highlighted items from Ground items instead of the one configured in this plugin",
 			position = 4
 	)
 	default boolean UseGroundItemList()
