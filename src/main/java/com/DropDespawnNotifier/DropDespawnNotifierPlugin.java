@@ -44,8 +44,6 @@ public class DropDespawnNotifierPlugin extends Plugin {
     @Inject
     private DropDespawnNotifierConfig config;
     @Inject
-    private GroundItemsConfig GIconfig;
-    @Inject
     private Notifier notifier;
 
     @Getter
@@ -56,13 +54,9 @@ public class DropDespawnNotifierPlugin extends Plugin {
     @Override
     protected void startUp() throws Exception {
 
-        if(config.UseGroundItemList()){
-            highlightedItemsList = Text.fromCSV(GIconfig.getHighlightItems());
-            NotifyItems = highlightedItemsList.toArray(new String[highlightedItemsList.size()]);
-        }
-        else {
+
             NotifyItems =  config.highlightedItems().split(",");
-        }
+
     }
     @Override
     protected void shutDown()
@@ -71,13 +65,9 @@ public class DropDespawnNotifierPlugin extends Plugin {
     }
     @Subscribe
     public void onConfigChanged(ConfigChanged event){
-        if(config.UseGroundItemList()){
-            highlightedItemsList = Text.fromCSV(GIconfig.getHighlightItems());
-            NotifyItems = highlightedItemsList.toArray(new String[highlightedItemsList.size()]);
-        }
-        else {
+
             NotifyItems =  config.highlightedItems().split(",");
-        }
+
     }
     @Subscribe
     public void onGameTick(GameTick event) {
