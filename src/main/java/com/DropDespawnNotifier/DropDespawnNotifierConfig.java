@@ -47,16 +47,6 @@ public interface DropDespawnNotifierConfig extends Config
 	{
 		return "";
 	}
-	@ConfigItem(
-			keyName = "UseGroundItemList",
-			name = "Use Ground Items Highlight List",
-			description = "If enabled uses the highlighted items from Ground items instead of the one configured in this plugin",
-			position = 4
-	)
-	default boolean UseGroundItemList()
-	{
-		return false;
-	}
 
 
 }
