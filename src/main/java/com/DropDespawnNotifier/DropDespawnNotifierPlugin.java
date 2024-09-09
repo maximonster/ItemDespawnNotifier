@@ -264,8 +264,4 @@ public class DropDespawnNotifierPlugin extends Plugin {
     DropDespawnNotifierConfig provideConfig(ConfigManager configManager) {
         return configManager.getConfig(DropDespawnNotifierConfig.class);
     }
-    @Provides
-    GroundItemsConfig provideConfigGI(ConfigManager configManager) {
-        return configManager.getConfig(GroundItemsConfig.class);
-    }
 }
