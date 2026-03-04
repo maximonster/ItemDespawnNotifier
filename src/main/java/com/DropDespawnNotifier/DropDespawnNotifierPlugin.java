@@ -15,17 +15,20 @@ import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
-
+import net.runelite.api.ChatMessageType;
+import net.runelite.client.chat.*;
 import net.runelite.client.plugins.PluginManager;
 import net.runelite.client.plugins.grounditems.GroundItemsConfig;
 import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.util.QuantityFormatter;
 import net.runelite.client.util.RSTimeUnit;
 import net.runelite.client.util.Text;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -45,11 +48,13 @@ public class DropDespawnNotifierPlugin extends Plugin {
     private DropDespawnNotifierConfig config;
     @Inject
     private Notifier notifier;
+    @Inject
+    private ChatMessageManager chatMessageManager;
+
 
     @Getter
     private final Table<WorldPoint, Integer, DSNGroundItem> collectedGroundItems = HashBasedTable.create();
     private String[] NotifyItems;
-    private List<String> highlightedItemsList = new CopyOnWriteArrayList<>();
 
     @Override
     protected void startUp() throws Exception {
@@ -62,6 +67,7 @@ public class DropDespawnNotifierPlugin extends Plugin {
     protected void shutDown()
     {
         collectedGroundItems.clear();
+        NotifyItems = null;
     }
     @Subscribe
     public void onConfigChanged(ConfigChanged event){
@@ -242,13 +248,50 @@ public class DropDespawnNotifierPlugin extends Plugin {
     }
 
     private boolean NotifyItemsContains(DSNGroundItem item){
-
+        String curitemCheck = "";
+        String dropItemname = item.getName().toLowerCase().trim().replaceAll("\\s+","");
+        try {
         for (int i = 0; i < NotifyItems.length; i++) {
-            if (NotifyItems[i].contains(item.getName())){
+            curitemCheck = NotifyItems[i];
+            if (NotifyItems[i].contains(">")){
+
+              if (item.getQuantity()> Integer.parseInt(NotifyItems[i].split(">")[1])){
+                  curitemCheck = NotifyItems[i].split(">")[0];
+              }
+
+            }
+            curitemCheck = curitemCheck.toLowerCase().trim().replaceAll("\\s+","");
+            if (curitemCheck.contains("*")){
+                int ast = 0;
+                for (int j = 0; j<curitemCheck.split("\\*").length;j++){
+                if (dropItemname.contains(curitemCheck.split("\\*")[j])){
+                    ast++;
+                }
+                if (ast==curitemCheck.split("\\*").length){
+                    return true;
+                }
+                }
+            }
+            if (dropItemname.equals(curitemCheck)){
                 return true;
             }
         }
         return false;
+        }
+        catch (Exception e){
+            log.error ( "Failed to load Highlighted items. Failed while loading: "+curitemCheck);
+            String chatMessage = new ChatMessageBuilder()
+                    .append(ChatColorType.HIGHLIGHT)
+                    .append("Failed to load Highlighted items. Failed while loading: ")
+                    .append(curitemCheck)
+                    .build();
+
+            chatMessageManager.queue(QueuedMessage.builder()
+                    .type(ChatMessageType.CONSOLE)
+                    .runeLiteFormattedMessage(chatMessage)
+                    .build());
+            return false;
+        }
     }
     @Provides
     DropDespawnNotifierConfig provideConfig(ConfigManager configManager) {

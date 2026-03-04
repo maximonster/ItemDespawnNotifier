@@ -83,4 +83,12 @@ class DSNGroundItem
 		highlighted = hidden = notified=false;
 		color = null;
 	}
+
+	String getName() {
+		return name;
+	}
+
+	int getQuantity(){
+		return quantity;
+	}
 }
