@@ -20,5 +20,5 @@ NotifySeconds - The amount of seconds before the drop respawn the plugin should 
 
 
 
-If this plugin somehow makes you want to donate you can do that [here](https://ko-fi.com/maximonster)
+If this plugin has been useful you can donate [here](https://ko-fi.com/maximonster)
 
