@@ -46,7 +46,7 @@ class DSNGroundItem
 	public WorldPoint location;
 	private int height;
 	private int haPrice;
-	private int gePrice;
+	private long gePrice;
 	private int offset;
 	private boolean tradeable;
 	private int ownership;
@@ -68,7 +68,7 @@ class DSNGroundItem
 		return haPrice * quantity;
 	}
 
-	int getGePrice()
+	long getGePrice()
 	{
 		return gePrice * quantity;
 	}
