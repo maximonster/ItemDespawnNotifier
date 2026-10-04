@@ -17,21 +17,12 @@ import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.api.ChatMessageType;
 import net.runelite.client.chat.*;
-import net.runelite.client.plugins.PluginManager;
-import net.runelite.client.plugins.grounditems.GroundItemsConfig;
-import net.runelite.client.plugins.grounditems.GroundItemsPlugin;
 import net.runelite.client.util.QuantityFormatter;
 import net.runelite.client.util.RSTimeUnit;
-import net.runelite.client.util.Text;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import static net.runelite.api.ItemID.COINS;
 
